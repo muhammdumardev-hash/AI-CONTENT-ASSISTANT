@@ -50,13 +50,39 @@ st.markdown(
             gap: 16px;
         }
 
+        .main-title-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
         .main-title {
+            position: relative;
+            z-index: 1;
             font-family: 'Fraunces', serif;
             font-size: 44px;
             font-weight: 600;
             color: #f7f1e3;
             margin: 0 0 8px 0;
             line-height: 1.1;
+        }
+
+        /* Highlighter-marker sweep behind the title, one-time reveal on load */
+        .main-title-wrap::after {
+            content: "";
+            position: absolute;
+            left: -8px;
+            right: -8px;
+            bottom: 10px;
+            height: 16px;
+            background: rgba(201, 162, 39, 0.4);
+            z-index: 0;
+            transform: scaleX(0);
+            transform-origin: left center;
+            animation: highlightSweep 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+        }
+
+        @keyframes highlightSweep {
+            to { transform: scaleX(1); }
         }
 
         .subtitle {
@@ -82,21 +108,21 @@ st.markdown(
             font-family: 'Inter', sans-serif;
         }
 
-        /* Paper-colored form containers (fixes black-form issue) */
+        /* Dark navy form panel — distinct from pure black, inputs stay light for typing */
         div[data-testid="stVerticalBlockBorderWrapper"] {
-            background: #f7f1e3 !important;
-            border: 1px solid #e4dac2 !important;
+            background: #182643 !important;
+            border: 1px solid rgba(247, 241, 227, 0.14) !important;
             border-radius: 10px !important;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
             padding: 10px !important;
         }
 
-        /* Section labels inside paper cards */
+        /* Section labels inside the dark panel */
         .section-label {
             font-family: 'Fraunces', serif;
             font-size: 18px;
             font-weight: 600;
-            color: #1f2937;
+            color: #f7f1e3;
             margin-top: 4px;
             margin-bottom: 16px;
         }
@@ -130,7 +156,7 @@ st.markdown(
         }
 
         label, .stSelectbox label, .stTextArea label, .stTextInput label {
-            color: #4b4536 !important;
+            color: #f7f1e3 !important;
             font-weight: 600 !important;
             font-size: 13.5px !important;
         }
@@ -219,7 +245,7 @@ st.markdown(
     <div class="hero-wrap">
         <div class="hero-top-row">
             <div>
-                <div class="main-title">The Content Desk</div>
+                <div class="main-title-wrap"><div class="main-title">The Content Desk</div></div>
                 <div class="subtitle">Draft a complete post, caption, and hashtag set for any platform in one pass.</div>
             </div>
             <div class="stamp-badge">GROQ<br>POWERED</div>
